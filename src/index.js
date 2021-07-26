@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from "react-dom"
-import Apple from './containers/Apple';
+import App from './containers/App';
 
 
 
-render(<Apple/>,document.getElementById("root"))
+render(<App/>,document.getElementById("root"))

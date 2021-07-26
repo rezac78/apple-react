@@ -70,7 +70,7 @@ const Main = () => {
                                     <a className="font" style={{ fontSize: "1.6em", color: "#3498db" }} href="">Learm more</a>
                                     <a className="font ml-5" style={{ fontSize: "1.6em", color: "#3498db" }} href="">Buy</a>
                                 </div>
-                                <img src="./img/a4.jpg" alt="" />
+                                <img src="/img/a4.jpg" alt="" />
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@ const Main = () => {
                                     <a className="font" style={{ fontSize: "1em", color: "white" }} href="">watch now <i
                                         className="fas fa-play"></i></a>
                                 </div>
-                                <img style={{ height: "auto" }} src="./img/z1.png" alt="" />
+                                <img style={{ height: "auto" }} src="./img/z1.jpg" alt="" />
                             </div>
                         </div>
                     </div>
