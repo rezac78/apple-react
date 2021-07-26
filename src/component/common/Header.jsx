@@ -1,5 +1,5 @@
 import React from 'react';
-
+import  {NavLink} from "react-router-dom";
 
 const Header = () => {
     return (
@@ -40,15 +40,15 @@ const Header = () => {
                             <a href="" className="nav-link" style={{ textDecoration: "none", color: "rgb(189, 189, 189)" }}>Music</a>
                         </li>
                         <li className="nav-item c8">
-                            <a href="" className="nav-link" style={{ textDecoration: "none", color: "rgb(189, 189, 189)" }}>Support</a>
+                            <NavLink to="/" exact activeStyle={{color:"red"}} className="nav-link" style={{ textDecoration: "none", color: "rgb(189, 189, 189)" }}>Support</NavLink>
                         </li>
                         <li className="nav-item c9">
-                            <a href="" className="nav-link" style={{ textDecoration: "none", color: "rgb(189, 189, 189)" }}><i
-                                style={{ fontSize: "1.2em" }} className="fas fa-search"></i></a>
+                            <NavLink activeStyle={{color:"red"}} to="/register" className="nav-link" style={{ textDecoration: "none", color: "rgb(189, 189, 189)" }}><i
+                                style={{ fontSize: "1.2em" }} className="fas fa-search"></i></NavLink>
                         </li>
                         <li className="nav-item c10">
-                            <a href="" className="nav-link" style={{ textDecoration: "none", color: "rgb(189, 189, 189)" }}><i
-                                style={{ fontSize: "1.2em" }} className="fas fa-shopping-bag"></i></a>
+                            <NavLink activeStyle={{color:"red"}} to="/login" className="nav-link" style={{ textDecoration: "none", color: "rgb(189, 189, 189)" }}><i
+                                style={{ fontSize: "1.2em" }} className="fas fa-shopping-bag"></i></NavLink>
                             <div id="part-shop"  className="open-div">
                                 <span style={{ color: "#b1b1c0", cursor: "pointer" }} id="header">Your Bag is empty.</span>
                                 <hr/>

@@ -19,9 +19,6 @@ const Login = () => {
                         <input name="remember" type="checkbox" value="remember-me" /> Remember me
                     </label>
                 </div>
-                <div className="form-group">
-                    <div className="g-recaptcha" data-sitekey="6Ld8NV0bAAAAAG6of_pki3Rc288CIp7Gl1rAYBYg"></div>
-                </div>
                 <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             </form>
         </main>
