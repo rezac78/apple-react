@@ -1,17 +1,29 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
+import SimpleReactValidator from 'simple-react-validator';
+import { registerUser } from './../../services/userServices';
 
 const Register = () => {
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [, forceUpdate] = useState();
+    const validation = useRef(new SimpleReactValidator({
+        message: {
+            required: "پرکردن الزامی است",
+            min: "کمتر از 4 نباشد",
+            email: "ایمیل نئشته شده صحیح نیست"
+        },
+        element: message => <div style={{ color: "red" }}>{message}</div>
+    }))
+
+
     const reset = () => {
         setEmail("");
         setFullname("");
         setPassword("");
     }
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const user = {
@@ -19,27 +31,22 @@ const Register = () => {
             email,
             password,
         };
-
-        axios
-            .post('https://toplearnapi.ghorbany.dev/api/register', JSON.stringify(user),
-                {
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
-            )
-            .then(({ status, data }) => {
+        try {
+            if (validation.current.allValid) {
+                const { status } = await registerUser(user);
                 if (status === 201) {
                     toast.success('همه چی روبه راهه', { position: "top-right", closeOnClick: true });
-                    console.log(data);
-                    reset();
                 }
-            })
-            .catch(err => {
-                toast.error('خطا رخ داده است', { position: "top-right", closeOnClick: true });
                 reset();
-                console.log(err)
-            })
+            } else {
+                validation.current.showMessages();
+                forceUpdate(1)
+            }
+        } catch (err) {
+            toast.error('خطا رخ داده است', { position: "top-right", closeOnClick: true });
+            reset();
+            console.log(err)
+        }
 
         console.log(user);
     }
@@ -49,7 +56,11 @@ const Register = () => {
             <form onSubmit={handleSubmit}>
                 <h1 className="h3 mb-3 fw-normal">Please Register in</h1>
                 <div className="form-floating">
-                    <input value={fullname} onChange={(e) => setFullname(e.target.value)} name="fullname" type="text" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                    <input value={fullname} onChange={(e) => {
+                        setFullname(e.target.value)
+                        validation.current.showMessageFor("fullname")
+                    }} name="fullname" type="text" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                    {validation.current.message("fullname", fullname, "required|min:4")}
                     <label for="floatingInput">Email address</label>
                 </div>
                 <div className="form-floating">
