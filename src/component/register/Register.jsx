@@ -1,13 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import SimpleReactValidator from 'simple-react-validator';
+import { Sugar } from 'react-preloaders';
 import { registerUser } from './../../services/userServices';
+import { Helmet } from 'react-helmet';
 
-const Register = () => {
+const Register = props => {
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [policy, setPolicy] = useState();
+    const [loading, setLoading] = useState(false);
     const [, forceUpdate] = useState();
     const validator = useRef(new SimpleReactValidator({
         messages: {
@@ -34,16 +37,20 @@ const Register = () => {
         };
         try {
             if (validator.current.allValid()) {
+                setLoading(true);
                 const { status } = await registerUser(user);
                 if (status === 201) {
                     toast.success('همه چی روبه راهه', { position: "top-right", closeOnClick: true });
                 }
+                setLoading(false);
                 reset();
+                History.replace("/login")
             } else {
                 validator.current.showMessages();
                 forceUpdate(1)
             }
         } catch (err) {
+            setLoading(false);
             toast.error('خطا رخ داده است', { position: "top-right", closeOnClick: true });
             reset();
             console.log(err)
@@ -54,8 +61,14 @@ const Register = () => {
 
     return (
         <main className="form-signin">
+            <Helmet>
+                <title>Login</title>
+            </Helmet>
             <form onSubmit={handleSubmit}>
                 <h1 className="h3 mb-3 fw-normal">Please Register in</h1>
+                {loading ? (
+                    <Sugar time={0} color="#fc03d7" customLoading={loading} />
+                ) : null}
                 <div className="form-floating">
                     <input value={fullname} onChange={e => {
                         setFullname(e.target.value)
